@@ -81,6 +81,12 @@
   }
 }
 
-.svg-icon {
-  width: 240px;
+// 사용자 편의성과 div를 줄이기 위함.
+// common textfield의 ErrorMessage를 absolute로 설정해서
+// 에러메세지 생성시 레이아웃 변경이 없도록 처리함.
+// 이번경우는 min height 로 처리함
+@layer components {
+  .text-field > p {
+    @apply absolute;
+  }
 }

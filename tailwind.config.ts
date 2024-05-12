@@ -72,7 +72,7 @@ const config = {
         xs: [
           '18px',
           {
-            lineHeight: '20px',
+            lineHeight: '40px',
             letterSpacing: '0',
             fontWeight: '400',
           },

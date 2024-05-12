@@ -3,46 +3,58 @@ import IconButton from './IconButton';
 import { XIcon } from '../icon/Icons';
 import ErrorMessage from './ErrorMessage';
 import { cn } from '@/lib/utils';
+import { FieldErrors, UseFormRegister, UseFormResetField, UseFormSetFocus, UseFormWatch } from 'react-hook-form';
 
 interface CommonTextField {
-  errorMessage: string;
-  onIconClick: React.MouseEventHandler<HTMLButtonElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  errorMessage: FieldErrors<any>;
   placeholder: string;
-  Value: string;
   IsError: boolean;
+  register: UseFormRegister<any>;
+  id: string;
+  watch: UseFormWatch<any>;
+  resetField: UseFormResetField<any>;
+  setFocus: UseFormSetFocus<any>;
 }
 
 export default function CommonTextField({
   errorMessage,
-  onIconClick,
   placeholder,
-  Value,
   IsError,
-  onChange,
+  id,
+  register,
+  watch,
+  resetField,
+  setFocus,
 }: CommonTextField) {
+  const inputValue = watch(id);
   const [isFocused, setIsFocused] = useState(false);
-  const borderColor = isFocused ? 'border-emerald-400' : !Value ? 'border-gray-400' : 'border-black';
+
+  // 아이콘 클릭시 값삭제후 focus
+  const onIconClick = () => {
+    resetField(id);
+    setFocus(id);
+  };
+  const borderColor = isFocused ? 'border-emerald-400' : !inputValue ? 'border-gray-200' : 'border-black';
   return (
-    <>
+    <div>
       <div
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={cn('border-b border-primary text-primary ', borderColor)}>
+        className={cn('flex flex-row justify-between border-b border-primary text-primary', borderColor)}>
         <input
-          className="outline-none"
+          className="grow outline-none"
           type="text"
           placeholder={placeholder}
-          value={Value}
-          onChange={onChange}
+          {...register(id)}
         />
-        {Value && (
+
+        {inputValue && (
           <IconButton onClick={onIconClick}>
             <XIcon />
           </IconButton>
         )}
       </div>
-      {IsError && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </>
+      <ErrorMessage className="min-h-[40px]">{errorMessage[id]?.message as string}</ErrorMessage>
+    </div>
   );
 }

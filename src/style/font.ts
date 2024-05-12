@@ -1,4 +1,4 @@
-import { Roboto, Noto_Sans_KR } from "next/font/google"; 
+import { Roboto, Noto_Sans_KR } from 'next/font/google';
 
 export const roboto = Roboto({
   subsets: ['latin'],
@@ -9,7 +9,7 @@ export const roboto = Roboto({
 
 export const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값
-  subsets: ["latin"], // 또는 preload: false
-  weight: ["100", "400", "700", "900"],
-  variable: '--font-notoSansKr'
+  subsets: ['latin'], // 또는 preload: false
+  weight: ['100', '400', '700', '900'],
+  variable: '--font-notoSansKr',
 });
